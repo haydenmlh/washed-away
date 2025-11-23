@@ -1,64 +1,103 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using System;
+using UnityEngine.InputSystem;   // Required for Input System
 
 public class Dialogue : MonoBehaviour
 {
+    [Header("Dialogue Settings")]
     public TextMeshProUGUI textComponent;
     public string[] lines;
-    public float textSpeed;
+    public float textSpeed = 0.05f;
+
+    [Header("Optional: Auto-disable on finish")]
+    public bool disableOnFinish = true;
+
+    private PlayerInputActions inputActions;  // Your generated class
     private int index;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    private void Awake()
+    {
+        // Create instance once in Awake (better than Start)
+        inputActions = new PlayerInputActions();
+    }
+
+    private void OnEnable()
+    {
+        // Always enable input when this object is active
+        inputActions.Enable();
+        
+        // Optional: Subscribe to Submit action via event (cleaner than polling)
+        inputActions.UI.Submit.performed += OnSubmitPerformed;
+    }
+
+    private void OnDisable()
+    {
+        // Always clean up
+        inputActions.UI.Submit.performed -= OnSubmitPerformed;
+        inputActions.Disable();
+    }
+
+    private void Start()
     {
         textComponent.text = string.Empty;
         StartDialogue();
     }
 
-    // Update is called once per frame
-    void Update()
+    // This method is called every time the player presses Submit (Space/Enter/A button)
+    private void OnSubmitPerformed(InputAction.CallbackContext context)
     {
-        if(Input.GetMouseButton(0))
-    {
-      if (textComponent.text == lines[index])
-      {
-        NextLine();
-      }
-      else
-      {
-        StopAllCoroutines();
-        textComponent.text = lines[index];
-      }
-    }
+        if (textComponent.text == lines[index])
+        {
+            NextLine();
+        }
+        else
+        {
+            // Instantly finish typing current line
+            StopAllCoroutines();
+            textComponent.text = lines[index];
+        }
     }
 
     void StartDialogue()
-  {
-    index = 0;
-    StartCoroutine(TypeLine());
-  }
+    {
+        index = 0;
+        StartCoroutine(TypeLine());
+    }
 
-  IEnumerator TypeLine()
-  {
-    foreach (char c in lines[index].ToCharArray())
+    IEnumerator TypeLine()
     {
-      textComponent.text += c;
-      yield return new WaitForSeconds(textSpeed);
+        textComponent.text = string.Empty;
+        
+        foreach (char c in lines[index].ToCharArray())
+        {
+            textComponent.text += c;
+            yield return new WaitForSeconds(textSpeed);
+        }
     }
-  }
 
-  void NextLine()
-  {
-    if (index < lines.Length - 1)
+    void NextLine()
     {
-      index ++;
-      textComponent.text = string.Empty;
-      StartCoroutine(TypeLine());
+        if (index < lines.Length - 1)
+        {
+            index++;
+            StartCoroutine(TypeLine());
+        }
+        else
+        {
+            // Dialogue finished
+            if (disableOnFinish)
+                gameObject.SetActive(false);
+        }
     }
-    else
+
+    // Optional: Visual debugging in Inspector
+#if UNITY_EDITOR
+    private void Reset()
     {
-      gameObject.SetActive(false);
+        // Auto-assign TextMeshProUGUI if in same GameObject
+        if (textComponent == null)
+            textComponent = GetComponentInChildren<TextMeshProUGUI>();
     }
-  }
+#endif
 }

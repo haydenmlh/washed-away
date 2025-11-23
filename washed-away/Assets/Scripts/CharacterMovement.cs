@@ -30,7 +30,6 @@ public class CharacterMovement : MonoBehaviour
     playerInput.Player.Disable();
   }
 
-    // Update is called once per frame
     private void FixedUpdate()
     {
         Vector3 movement = new Vector3(currentMovementInput.x, currentMovementInput.y, 0f);
