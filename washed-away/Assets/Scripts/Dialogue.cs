@@ -25,7 +25,7 @@ public class Dialogue : MonoBehaviour
 
         // Auto-find if not assigned
         if (playerMovement == null)
-            playerMovement = FindObjectOfType<CharacterMovement>();
+            playerMovement = FindAnyObjectByType<CharacterMovement>();
     }
 
     private void OnEnable()
@@ -36,6 +36,12 @@ public class Dialogue : MonoBehaviour
         // Disable player movement when dialogue starts
         if (playerMovement != null)
             playerMovement.DisableMovement();
+
+        // FIX: clean slate every time the dialogue opens
+        StopAllCoroutines();
+        textComponent.text = string.Empty;
+        index = 0;
+        StartDialogue();
     }
 
     private void OnDisable()
@@ -46,12 +52,6 @@ public class Dialogue : MonoBehaviour
         // Re-enable movement when dialogue ends
         if (playerMovement != null)
             playerMovement.EnableMovement();
-    }
-
-    private void Start()
-    {
-        textComponent.text = string.Empty;
-        StartDialogue();
     }
 
     // This method is called every time the player presses Submit (Space/Enter/A button)

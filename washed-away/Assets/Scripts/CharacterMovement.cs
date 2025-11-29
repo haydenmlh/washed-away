@@ -1,41 +1,109 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterMovement : MonoBehaviour
+public class CharacterMovement : MonoBehaviour  // Add: Rigidbody2D if using physics movement
 {
+    [Header("Movement")]
     public float moveSpeed = 5f;
+
+    [Header("Interaction")]
+    public float interactDistance = 2f;
+    public LayerMask interactableLayer = -1;  // Set to Interactable layer
+
+    [Header("Prompt")]
+    public string defaultPrompt = "Press E to interact";
+
     private PlayerInputActions playerInput;
     private Vector2 currentMovementInput;
-
-    // Add this flag
     [HideInInspector] public bool canMove = true;
+
+    private Interactable currentInteractable;
 
     private void Awake()
     {
         playerInput = new PlayerInputActions();
         playerInput.Player.Move.performed += ctx => currentMovementInput = ctx.ReadValue<Vector2>();
         playerInput.Player.Move.canceled += ctx => currentMovementInput = Vector2.zero;
+        playerInput.Player.Interact.performed += OnInteract;
     }
 
-    private void OnEnable()
+    private void OnEnable() => playerInput.Player.Enable();
+    private void OnDisable() => playerInput.Player.Disable();
+
+    private void Update()
     {
-        playerInput.Player.Enable();
+        if (!canMove)
+        {
+            HideCurrentPrompt();
+            return;
+        }
+
+        FindAndHighlightClosest();
     }
 
-    private void OnDisable()
+    private void FixedUpdate()  // For smooth 2D movement
     {
-        playerInput.Player.Disable();
-    }
-
-    private void FixedUpdate()
-    {
-        if (!canMove) return; // This stops movement during dialogue
+        if (!canMove) return;
 
         Vector3 movement = new Vector3(currentMovementInput.x, currentMovementInput.y, 0f);
         transform.Translate(movement * moveSpeed * Time.fixedDeltaTime);
+        // OR: Use Rigidbody2D.velocity for physics: rb.velocity = movement * moveSpeed;
     }
 
-    // Public methods to control movement from other scripts
+    // 2D-SPECIFIC: Circle overlap + Vector2
+    private void FindAndHighlightClosest()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, interactDistance, interactableLayer);
+        Interactable closest = null;
+        float closestDist = float.MaxValue;
+
+        foreach (Collider2D hit in hits)
+        {
+            Interactable interactable = hit.GetComponent<Interactable>();
+            if (interactable != null)
+            {
+                float dist = Vector2.Distance(transform.position, hit.transform.position);
+                if (dist < closestDist)
+                {
+                    closestDist = dist;
+                    closest = interactable;
+                }
+            }
+        }
+
+        if (closest != currentInteractable)
+        {
+            HideCurrentPrompt();
+            currentInteractable = closest;
+            ShowCurrentPrompt();
+        }
+    }
+
+    private void ShowCurrentPrompt() => currentInteractable?.ShowPrompt(true);
+    private void HideCurrentPrompt()
+    {
+        if (currentInteractable != null)
+        {
+            currentInteractable.ShowPrompt(false);
+            currentInteractable = null;
+        }
+    }
+
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        if (!canMove || currentInteractable == null) return;
+        currentInteractable.Interact();
+    }
+
     public void DisableMovement() => canMove = false;
     public void EnableMovement() => canMove = true;
+
+    // 2D Gizmo: Circle
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, interactDistance);
+    }
+
+    private void OnDestroy() => HideCurrentPrompt();
 }
