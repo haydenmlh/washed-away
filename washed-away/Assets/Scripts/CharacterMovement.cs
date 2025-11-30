@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class CharacterMovement : MonoBehaviour  // Add: Rigidbody2D if using physics movement
 {
     [Header("Movement")]
-    public float moveSpeed = 5f;
+    public float moveSpeed = 2f;
 
     [Header("Interaction")]
     public float interactDistance = 2f;
@@ -18,6 +18,8 @@ public class CharacterMovement : MonoBehaviour  // Add: Rigidbody2D if using phy
     [HideInInspector] public bool canMove = true;
 
     private Interactable currentInteractable;
+    [SerializeField] private Animator animator;
+    
 
     private void Awake()
     {
@@ -47,6 +49,45 @@ public class CharacterMovement : MonoBehaviour  // Add: Rigidbody2D if using phy
 
         Vector3 movement = new Vector3(currentMovementInput.x, currentMovementInput.y, 0f);
         transform.Translate(movement * moveSpeed * Time.fixedDeltaTime);
+        
+        float moveX = currentMovementInput.x;
+        print("moveX");
+        print(moveX);
+        float moveY = currentMovementInput.y;
+        print("moveY");
+        print(moveY);
+        
+        if (moveX > 0)
+        {
+            animator.SetBool("isRight", true);
+            animator.SetBool("isLeft", false);
+        }
+        else if (moveX < 0)
+        {
+            animator.SetBool("isRight", false);
+            animator.SetBool("isLeft", true);
+        }
+        else
+        {
+            animator.SetBool("isRight", false);
+            animator.SetBool("isLeft", false);
+        }
+
+        if (moveY > 0)
+        {
+            animator.SetBool("isUp", true);
+            animator.SetBool("isDown", false);
+        }
+        else if (moveY < 0)
+        {
+            animator.SetBool("isUp", false);
+            animator.SetBool("isDown", true);
+        }
+        else
+        {
+            animator.SetBool("isUp", false);
+            animator.SetBool("isDown", false);
+        }
         // OR: Use Rigidbody2D.velocity for physics: rb.velocity = movement * moveSpeed;
     }
 
