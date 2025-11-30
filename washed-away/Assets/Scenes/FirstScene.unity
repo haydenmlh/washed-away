@@ -649,7 +649,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 7
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0.6019788, b: 1, a: 1}
   m_FlipX: 0
@@ -1260,9 +1260,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 6
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0.6019788, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.6019788, b: 1, a: 0.4745098}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1688,7 +1688,7 @@ GameObject:
   m_Component:
   - component: {fileID: 768708485}
   m_Layer: 0
-  m_Name: Ocean Layer 3
+  m_Name: Ocean Layer 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2266,7 +2266,7 @@ GameObject:
   - component: {fileID: 1069197315}
   - component: {fileID: 1069197316}
   m_Layer: 0
-  m_Name: Player Layer 2
+  m_Name: Player Layer 5
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2318,8 +2318,8 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 1410593717, guid: 5333e6ec57ed45b4d9f668b8afd174c3, type: 3}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: 7ef8b4790348ef34599a87309be09294, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
