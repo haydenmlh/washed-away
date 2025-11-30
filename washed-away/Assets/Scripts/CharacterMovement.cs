@@ -51,11 +51,11 @@ public class CharacterMovement : MonoBehaviour  // Add: Rigidbody2D if using phy
         transform.Translate(movement * moveSpeed * Time.fixedDeltaTime);
         
         float moveX = currentMovementInput.x;
-        print("moveX");
-        print(moveX);
+        // print("moveX");
+        // print(moveX);
         float moveY = currentMovementInput.y;
-        print("moveY");
-        print(moveY);
+        // print("moveY");
+        // print(moveY);
         
         if (moveX > 0)
         {

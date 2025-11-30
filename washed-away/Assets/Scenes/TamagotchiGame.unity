@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 77998477}
   - component: {fileID: 77998476}
   m_Layer: 0
-  m_Name: tamagotchi sprite_0 (1)
+  m_Name: Enemy Tamagotchi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
