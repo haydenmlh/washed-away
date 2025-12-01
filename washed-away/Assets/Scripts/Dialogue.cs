@@ -17,7 +17,11 @@ public class Dialogue : MonoBehaviour
     public CharacterMovement playerMovement; // Assign in Inspector!
 
     private PlayerInputActions inputActions;
+
+    public SceneController sceneController;
     private int index;
+
+    public bool shouldEnd = false;
 
     private void Awake()
     {
@@ -48,6 +52,11 @@ public class Dialogue : MonoBehaviour
     {
         inputActions.UI.Submit.performed -= OnSubmitPerformed;
         inputActions.Disable();
+
+        if (shouldEnd)
+        {
+          sceneController.LoadLevel("EndGame");
+        }
 
         // Re-enable movement when dialogue ends
         if (playerMovement != null)

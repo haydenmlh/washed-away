@@ -14,6 +14,7 @@ public class Interactable : MonoBehaviour
     public Canvas promptCanvas;
     public TMPro.TextMeshProUGUI promptText;
     public string promptMessage = "Press 'E' to interact";
+    public bool shouldEnd = false;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class Interactable : MonoBehaviour
         {
             dialogueUI.lines = dialogueLines;
             dialogueUI.gameObject.SetActive(true);
+            dialogueUI.shouldEnd = shouldEnd;
         }
     }
 
