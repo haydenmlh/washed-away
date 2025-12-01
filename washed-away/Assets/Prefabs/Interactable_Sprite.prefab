@@ -82,13 +82,13 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -6558514100530302957, guid: 4c12d581dd8840645987ec8e9860b822, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: -5250703097661554548, guid: 57d01030a12bddd4b9f8a0f080788bf7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.12, y: 5.51}
+  m_Size: {x: 49.92, y: 28.08}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -159,8 +159,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.12, y: 5.51}
-    newSize: {x: 6.12, y: 5.51}
+    oldSize: {x: 11.84, y: 14.79}
+    newSize: {x: 49.92, y: 28.08}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -245,8 +245,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 570790741
-  m_SortingOrder: 10
+  m_SortingLayerID: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &9164106404528863237
 MonoBehaviour:
