@@ -358,7 +358,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Thank you for playing our game!\nWe originally had plans of making minigames
     for the three interactables but unfortunately, we ran out of time. \nHope you
-    enjoyed!\n\n- zorkxa, asimulator, 3dsquare124, leyla"
+    enjoyed!\n\n- zorkxa, asimulator, 3dsquare, leyla"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
